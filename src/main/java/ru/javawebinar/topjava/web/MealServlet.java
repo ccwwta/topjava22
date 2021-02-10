@@ -25,7 +25,13 @@ public class MealServlet extends HttpServlet {
     private static final Logger log = getLogger(MealServlet.class);
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
 
-    private final MealRepository repository = new InMemoryMealRepository();
+    private MealRepository repository;
+
+    @Override
+    public void init() throws ServletException {
+        log.debug("Servlet init()");
+        repository = new InMemoryMealRepository();
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
